@@ -1,14 +1,13 @@
 package android.de.meetat;
 
+import android.de.meetat.friends.FriendsFragment;
+import android.de.meetat.profile.ProfileFragment;
 import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.de.meetat.search.SearchFragment;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -94,14 +93,13 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.search) {
             fragment = new SearchFragment();
             title = "Search";
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
+        } else if (id == R.id.friends) {
+            fragment = new FriendsFragment();
+            title = "Friends";
+        } else if (id == R.id.profile) {
+            fragment = new ProfileFragment();
+            title = "Profile";
         }
-
 
         if (fragment != null) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
