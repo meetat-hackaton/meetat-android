@@ -4,6 +4,8 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
 
+    useLibrary 'org.apache.http.legacy'
+
     defaultConfig {
         applicationId "android.de.meetat"
         minSdkVersion 21
@@ -31,4 +33,5 @@ dependencies {
     compile 'com.android.support:support-v4:23.2.1'
     compile 'com.android.support:design:23.2.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'org.apache.httpcomponents:httpclient:4.5.2'
 }
