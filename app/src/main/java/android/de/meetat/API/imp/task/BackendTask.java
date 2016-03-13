@@ -17,7 +17,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Philipp Daniels
@@ -31,7 +31,8 @@ public abstract class BackendTask<Params, Progress, Result> extends AsyncService
         super(context, callback);
     }
 
-    protected String post(String uri, ArrayList<NameValuePair> parameters) {
+    protected JSONObject post(String uri, List<NameValuePair> parameters) {
+        StringBuffer result = new StringBuffer();
         try {
             HttpClient client = new DefaultHttpClient();
             HttpPost post = new HttpPost(API_HOME + uri);
@@ -40,21 +41,20 @@ public abstract class BackendTask<Params, Progress, Result> extends AsyncService
 
             BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
 
-            StringBuffer result = new StringBuffer();
             String line = "";
             while ((line = rd.readLine()) != null) {
                 result.append(line);
             }
 
-            JSONObject o = new JSONObject(result.toString());
+            return new JSONObject(result.toString());
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            callback.onFailure(context, e, null);
         } catch (JSONException e) {
-            e.printStackTrace();
+            callback.onFailure(context, e, null);
         } catch (ClientProtocolException e) {
-            e.printStackTrace();
+            callback.onFailure(context, e, null);
         } catch (IOException e) {
-            e.printStackTrace();
+            callback.onFailure(context, e, null);
         }
         return null;
     }
