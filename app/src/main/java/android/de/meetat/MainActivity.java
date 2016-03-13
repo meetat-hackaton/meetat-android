@@ -130,6 +130,16 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        if (id == R.id.log_out) {
+            if (Session.getSessionReminder().isLogged(getApplicationContext())) {
+                Session.getSessionReminder().dropLogin(getApplicationContext());
+                showNavView(false);
+                //p2pkit shutdown
+                selectItem(Navigation.Login);
+                return true;
+            }
+        }
+
         Navigation nav = Navigation.fromId(id);
         return selectItem(nav);
     }
