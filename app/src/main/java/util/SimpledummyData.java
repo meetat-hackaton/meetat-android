@@ -9,6 +9,7 @@ import fr.tkeunebr.gravatar.Gravatar;
  * Created by raina on 13.03.2016.
  */
 public class SimpledummyData {
+    int ver;
     public static class Row{
         String name;
         Row(String name, String avatar){
