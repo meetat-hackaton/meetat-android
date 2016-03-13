@@ -13,7 +13,10 @@
     //Aplication String
     <string name="nickname">nickname</string>
     <string name="password">password</string>
+    <string name="email">email</string>
     <string name="login">Login</string>
+    <string name="register">Not registered yet?</string>
+    <string name="signup">Sign Up</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="friends_head">Friends</string>
     <string name="profile_head">Profile</string>
