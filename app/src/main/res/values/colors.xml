@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="app_color_orange">#FF7400</color>
+    <color name="app_color_inv_orange">#008BFF</color>
     <color name="hint_text_color">#ABABAB</color>
     <color name="selector_color">#ffb76d</color>
 </resources>

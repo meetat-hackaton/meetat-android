@@ -1,15 +1,18 @@
 package android.de.meetat;
 
+import android.content.Context;
+import android.de.meetat.authenticate.LoginFragment;
+import android.de.meetat.authenticate.RegisterFragment;
 import android.de.meetat.friends.FriendsFragment;
 import android.de.meetat.profile.ProfileFragment;
-import android.support.v4.app.Fragment;
-import android.content.Context;
+import android.de.meetat.reminder.MyRemindersFragment;
 import android.de.meetat.search.SearchFragment;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.DrawerLayout;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -24,23 +27,41 @@ import fr.tkeunebr.gravatar.Gravatar;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        //get_gravatar("mahieke@htwg-konstanz.de",getApplicationContext());
-
-        toggle.syncState();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+
+        if (!Session.getSessionReminder().isLogged(getApplicationContext())) {
+            showNavView(false);
+            selectItem(Navigation.Login);
+        } else {
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+
+            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+
+            drawer.addDrawerListener(toggle);
+            navigationView.setNavigationItemSelectedListener(this);
+            toggle.syncState();
+            selectItem(Navigation.Start);
+        }
+    }
+
+    private void showNavView(Boolean doShow) {
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (doShow) {
+            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, navigationView);
+        }
+        else {
+            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, navigationView);;
+        }
+
     }
 
     private void get_gravatar(String email, Context context) {
@@ -87,18 +108,39 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        Navigation nav = Navigation.fromId(id);
+        return selectItem(nav);
+    }
+
+    public Boolean selectItem(Navigation position) {
         Fragment fragment = null;
         String title = getString(R.string.app_name);
 
-        if (id == R.id.search) {
-            fragment = new SearchFragment();
-            title = "Search";
-        } else if (id == R.id.friends) {
-            fragment = new FriendsFragment();
-            title = "Friends";
-        } else if (id == R.id.profile) {
-            fragment = new ProfileFragment();
-            title = "Profile";
+        switch (position) {
+            case Login:
+                fragment = new LoginFragment();
+                title = "Login";
+                break;
+            case Register:
+                fragment = new RegisterFragment();
+                title = "Register";
+                break;
+            case Start:
+                fragment = new SearchFragment();
+                title = "Start Here";
+                break;
+            case Profile:
+                fragment = new ProfileFragment();
+                title = "My Profile";
+                break;
+            case Friends:
+                fragment = new FriendsFragment();
+                title = "My Friends";
+                break;
+            case MyReminders:
+                fragment = new MyRemindersFragment();
+                title = "Created Reminders";
+                break;
         }
 
         if (fragment != null) {
