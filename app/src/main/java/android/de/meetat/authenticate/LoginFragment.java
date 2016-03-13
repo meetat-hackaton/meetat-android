@@ -1,7 +1,8 @@
 package android.de.meetat.authenticate;
 
-import android.de.meetat.API.Service;
+import android.content.Intent;
 import android.de.meetat.R;
+import android.de.meetat.Session;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -48,6 +49,12 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.login_button:
+
+                Session.getSessionReminder().saveLogin("key", "DummyName", getContext());
+                //code from hier works pretty welll manuel and phillip
+                Intent inten = getActivity().getIntent();
+                getActivity().finish();
+                startActivity(inten);
                 break;
             case R.id.not_registered:
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
