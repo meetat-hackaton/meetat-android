@@ -2,7 +2,6 @@ package android.de.meetat;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Pair;
 
 
 /**
@@ -25,7 +24,7 @@ public class Session {
         return sessionReminder;
     }
 
-    private void saveLogin(String key, String nickname, Context context){
+    public void saveLogin(String key, String nickname, Context context){
         SharedPreferences.Editor editor = context.getSharedPreferences(MY_PREFS_NAME, Context.MODE_PRIVATE).edit();
         editor.putString(KEY, key);
         editor.putString(NICKNAME, nickname);
