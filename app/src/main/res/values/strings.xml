@@ -21,4 +21,6 @@
     <string name="friends_head">Friends</string>
     <string name="profile_head">Profile</string>
     <string name="search_head">Search</string>
+
+    <string name="error_network_no_connection">No network connection. Please try it later.</string>
 </resources>
