@@ -17,7 +17,7 @@
         android:layout_height="100dp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:src="@drawable/avatar_border"
-        android:background="@drawable/priska"
+        android:background="@drawable/mahieke"
         android:layout_gravity="center_horizontal" /> <!-- Change with own placeholder-->
 
     <TextView

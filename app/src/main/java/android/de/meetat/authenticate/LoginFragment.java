@@ -49,7 +49,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.login_button:
-
                 Session.getSessionReminder().saveLogin("key", "DummyName", getContext());
                 //code from hier works pretty welll manuel and phillip
                 Intent inten = getActivity().getIntent();

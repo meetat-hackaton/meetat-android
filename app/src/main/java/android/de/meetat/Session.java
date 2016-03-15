@@ -10,7 +10,6 @@ import android.content.SharedPreferences;
 public class Session {
     private static final String  MY_PREFS_NAME = "de.meetat";
     private static Session sessionReminder = null;
-    private String KEY = null;
     private String NICKNAME = null;
 
     private Session() {
@@ -26,14 +25,23 @@ public class Session {
 
     public void saveLogin(String key, String nickname, Context context){
         SharedPreferences.Editor editor = context.getSharedPreferences(MY_PREFS_NAME, Context.MODE_PRIVATE).edit();
-        editor.putString(KEY, key);
         editor.putString(NICKNAME, nickname);
+        editor.commit();
+    }
+
+    public String getNickname() {
+        return NICKNAME;
+    }
+
+    public void dropLogin(Context context) {
+        SharedPreferences.Editor editor = context.getSharedPreferences(MY_PREFS_NAME, Context.MODE_PRIVATE).edit();
+        editor.remove(NICKNAME);
         editor.commit();
     }
 
     public boolean isLogged(Context context){
         SharedPreferences sharedPreferences = context.getSharedPreferences(MY_PREFS_NAME,Context.MODE_PRIVATE);
-        String result = sharedPreferences.getString(KEY,null);
+        String result = sharedPreferences.getString(NICKNAME,null);
         return result != null;
     }
 }

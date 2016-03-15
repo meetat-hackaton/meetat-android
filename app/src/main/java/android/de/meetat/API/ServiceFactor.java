@@ -7,9 +7,9 @@ import android.de.meetat.API.imp.QueryServiceImp;
 /**
  * Created by mahieke on 12.03.16.
  */
-public final class Service {
-    private Service() {
-        throw new RuntimeException("Donot create an instance of class Service!");
+public final class ServiceFactor {
+    private ServiceFactor() {
+        throw new RuntimeException("Donot create an instance of class ServiceFactor!");
     }
 
     public static AuthenticationService getAuthenticationService(Context context) {
